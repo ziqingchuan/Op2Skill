@@ -1,0 +1,121 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-family: var(--font-ui);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    opacity var(--transition-fast);
+  white-space: nowrap;
+  user-select: none;
+  text-decoration: none;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Sizes */
+.sm {
+  font-size: var(--text-xs);
+  padding: 4px 10px;
+  height: 28px;
+}
+
+.md {
+  font-size: var(--text-sm);
+  padding: 6px 14px;
+  height: 34px;
+}
+
+.lg {
+  font-size: var(--text-base);
+  padding: 8px 18px;
+  height: 40px;
+}
+
+/* Variants */
+.primary {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+}
+.primary:hover:not(:disabled) {
+  background: #2563eb;
+  border-color: #2563eb;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.35);
+}
+
+.secondary {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
+.secondary:hover:not(:disabled) {
+  background: var(--color-bg-secondary);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border-color: transparent;
+}
+.ghost:hover:not(:disabled) {
+  background: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
+.danger {
+  background: var(--color-recording-soft);
+  color: var(--color-recording);
+  border-color: rgba(239, 68, 68, 0.25);
+}
+.danger:hover:not(:disabled) {
+  background: #fee2e2;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+}
+
+.success {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+  border-color: rgba(16, 185, 129, 0.25);
+}
+.success:hover:not(:disabled) {
+  background: #a7f3d0;
+}
+
+/* Loading */
+.loading {
+  pointer-events: none;
+}
+
+.spinner {
+  width: 18px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.iconSlot {
+  display: flex;
+  align-items: center;
+  font-size: 1em;
+  flex-shrink: 0;
+}
+
+.text {
+  line-height: 1;
+}

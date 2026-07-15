@@ -1,0 +1,27 @@
+.empty {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: var(--space-2);
+}
+
+.timeline {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 48px;
+  padding: 0 2px;
+}
+
+.bar {
+  flex: 1;
+  background: var(--color-accent);
+  opacity: 0.55;
+  border-radius: 2px 2px 0 0;
+  min-height: 2px;
+  transition: height 0.3s ease, opacity 0.2s;
+}
+
+.bar:hover {
+  opacity: 1;
+}

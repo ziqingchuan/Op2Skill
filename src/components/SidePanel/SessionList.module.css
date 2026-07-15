@@ -1,0 +1,125 @@
+.empty {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: 1.6;
+  padding: var(--space-4) 0;
+  flex: 1;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  min-width: 0;
+}
+
+.item:hover {
+  background: var(--color-surface-hover);
+}
+
+.active {
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.active .title {
+  color: #2563eb;
+  font-weight: var(--weight-medium);
+}
+
+/* Left side: grows to fill available space */
+.itemContent {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title {
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.renameInput {
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  border: 1px solid #2563eb;
+  border-radius: var(--radius-sm);
+  padding: 1px var(--space-2);
+  width: 100%;
+  outline: none;
+}
+
+.itemMeta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  color: var(--color-text-muted);
+}
+
+.metaDot {}
+
+.skillBadge {
+  background: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
+  border-radius: 3px;
+  padding: 0 4px;
+  font-size: 9px;
+  font-weight: var(--weight-medium);
+}
+
+/* Right side: action buttons, vertically centered */
+.actions {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.actionBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast), background var(--transition-fast);
+  line-height: 1;
+}
+
+.actionBtn:hover {
+  color: var(--color-text-primary);
+  background: var(--color-surface-hover);
+}
+
+.deleteBtn:hover {
+  color: #e53e3e;
+  background: rgba(229, 62, 62, 0.08);
+}

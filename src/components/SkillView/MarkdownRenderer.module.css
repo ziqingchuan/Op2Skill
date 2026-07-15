@@ -1,0 +1,10 @@
+.wrapper {
+  padding: var(--space-6) var(--space-8);
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  margin-bottom: var(--space-4);
+}

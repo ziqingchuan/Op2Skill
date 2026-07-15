@@ -1,0 +1,71 @@
+.viewer {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  background: #1e1e2e;
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  color: #cdd6f4;
+}
+
+.line {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  min-height: 22px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.key {
+  color: #89dceb;
+}
+
+.string {
+  color: #a6e3a1;
+}
+
+.number {
+  color: #fab387;
+}
+
+.bool {
+  color: #89b4fa;
+}
+
+.null {
+  color: #6c7086;
+  font-style: italic;
+}
+
+.punct {
+  color: #9399b2;
+}
+
+.ellipsis {
+  color: #6c7086;
+  cursor: pointer;
+  padding: 0 var(--space-2);
+  font-style: italic;
+  font-size: var(--text-xs);
+}
+
+.ellipsis:hover {
+  color: #cdd6f4;
+}
+
+.toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6c7086;
+  font-size: 9px;
+  padding: 0 4px 0 0;
+  line-height: 1;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.toggle:hover {
+  color: #cdd6f4;
+}

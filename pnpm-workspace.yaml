@@ -1,0 +1,5 @@
+allowBuilds:
+  electron: true
+  esbuild: true
+  keytar: false
+  lzma-native: false

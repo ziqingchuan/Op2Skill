@@ -1,0 +1,86 @@
+.panel {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  background: rgba(250, 250, 249, 0.96);
+  border-right: 1px solid rgba(214, 211, 209, 0.76);
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.appHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 62px;
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-border-subtle);
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.appLogo {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-md);
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.appTitleGroup {
+  min-width: 0;
+}
+
+.appName {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--leading-tight);
+}
+
+.appDesc {
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-text-muted);
+}
+
+.section {
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding: var(--space-3) var(--space-4);
+}
+
+.sectionFixed {
+  flex-shrink: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.sectionGrow {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-bottom: none;
+}
+
+.sectionTitle {
+  font-size: 10px;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-3);
+  flex-shrink: 0;
+}
+
+.sectionContent {
+  min-width: 0;
+}
+
+.sectionContentGrow {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
