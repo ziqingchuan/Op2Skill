@@ -77,7 +77,7 @@ export function SessionList() {
                 <span>{time}</span>
                 <span className={styles.metaDot}>·</span>
                 <span>{eventCount} 事件</span>
-                {session.skillMarkdown && <span className={styles.skillBadge}>Skill</span>}
+                {session.skillMarkdown && <span className={styles.skillBadge}>SKILL</span>}
               </div>
             </div>
 

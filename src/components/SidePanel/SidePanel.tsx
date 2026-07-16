@@ -11,7 +11,7 @@ export function SidePanel() {
         <img src={logoSrc} className={styles.appLogo} alt="logo" />
         <div className={styles.appTitleGroup}>
           <div className={styles.appName}>Op2Skill</div>
-          <div className={styles.appDesc}>Record → Skill</div>
+          <div className={styles.appDesc}>Record → SKILL</div>
         </div>
       </div>
 

@@ -13,7 +13,7 @@ export function exportJson(events: RecordedEvent[], meta: SessionMeta): void {
  * Export skill markdown as skill.md file download.
  */
 export function exportMarkdown(skillMarkdown: string): void {
-  downloadFile(skillMarkdown, 'skill.md', 'text/markdown')
+  downloadFile(skillMarkdown, 'SKILL.md', 'text/markdown')
 }
 
 function downloadFile(content: string, filename: string, mimeType: string): void {

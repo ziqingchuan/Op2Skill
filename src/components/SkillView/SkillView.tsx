@@ -49,7 +49,7 @@ export function SkillView() {
 
   const GENERATING_MESSAGES = [
     '正在分析录制的操作序列…',
-    '构建 Skill 结构…',
+    '构建 SKILL 结构…',
     '优化步骤表述…',
     '整理输出格式…',
     '即将完成，稍等…',
@@ -86,7 +86,7 @@ export function SkillView() {
       setSkillGenerateState('done')
       setActiveTab('skill')
     } catch (error) {
-      console.error('生成 Skill 失败:', error)
+      console.error('生成 SKILL 失败:', error)
       setErrorMessage(getErrorMessage(error))
       setSkillGenerateState('error')
     }
@@ -117,7 +117,7 @@ export function SkillView() {
       <div className={styles.empty}>
         <div className={styles.emptyIcon}>◎</div>
         <p className={styles.emptyTitle}>暂无录制数据</p>
-        <p className={styles.emptyHint}>先录制一段浏览器工作流，然后点击「生成 Skill」创建可复用的技能文档。</p>
+        <p className={styles.emptyHint}>先录制一段浏览器工作流，然后点击「生成 SKILL」创建可复用的技能文档。</p>
       </div>
     )
   }
@@ -128,18 +128,18 @@ export function SkillView() {
         <div className={styles.toolbarLeft}>
           {isGenerating ? (
             <>
-              <span className={styles.toolbarLabel}>skill.md</span>
+              <span className={styles.toolbarLabel}>SKILL.md</span>
               <span className={styles.statusDotPending} />
               <span className={styles.statusTextPending}>正在生成</span>
             </>
           ) : skillMarkdown ? (
             <>
-              <span className={styles.toolbarLabel}>skill.md</span>
+              <span className={styles.toolbarLabel}>SKILL.md</span>
               <span className={styles.statusDot} />
               <span className={styles.statusText}>已生成</span>
             </>
           ) : (
-            <span className={styles.toolbarLabel}>尚未生成 Skill</span>
+            <span className={styles.toolbarLabel}>尚未生成 SKILL</span>
           )}
         </div>
         <div className={styles.toolbarRight}>
@@ -163,7 +163,7 @@ export function SkillView() {
             disabled={isGenerating || !hasEvents}
             onClick={handleGenerate}
           >
-            {isGenerating ? '生成中…' : skillMarkdown ? '重新生成' : '生成 Skill'}
+            {isGenerating ? '生成中…' : skillMarkdown ? '重新生成' : '生成 SKILL'}
           </Button>
         </div>
       </div>
@@ -176,7 +176,7 @@ export function SkillView() {
         <div className={styles.generatePrompt}>
           <div className={styles.promptIcon}>✦</div>
           <p className={styles.promptText}>
-            已录制 {events.length} 个事件。点击 <strong>生成 Skill</strong> 创建可复用的技能文档。
+            已录制 {events.length} 个事件。点击 <strong>生成 SKILL</strong> 创建可复用的技能文档。
           </p>
         </div>
       )}

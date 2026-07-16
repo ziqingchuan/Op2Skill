@@ -15,7 +15,7 @@ import styles from './App.module.css'
 
 const TABS: { id: ActiveTab; label: string }[] = [
   { id: 'events', label: '事件记录' },
-  { id: 'skill', label: 'Skill.md' },
+  { id: 'skill', label: 'SKILL.md' },
   { id: 'preview', label: 'JSON 预览' },
 ]
 
@@ -122,7 +122,7 @@ export default function App() {
             导出 JSON
           </Button>
           <Button variant="secondary" size="sm" disabled={!skillMarkdown} onClick={handleExportSkill} icon="↓">
-            导出 Skill.md
+            导出 SKILL.md
           </Button>
         </div>
       </footer>
