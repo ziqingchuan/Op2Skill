@@ -2,12 +2,13 @@ import { useRef, useState, useCallback, useEffect } from 'react'
 import styles from './BrowserPane.module.css'
 import { CookieManager } from './CookieManager'
 import { PasswordManager } from './PasswordManager'
+import { ImportManager } from './ImportManager'
 
 const isElectron =
   typeof window !== 'undefined' &&
   !!(window as Window & { electronAPI?: { isElectron: boolean } }).electronAPI?.isElectron
 
-type ModalType = 'cookie' | 'password' | null
+type ModalType = 'cookie' | 'password' | 'import' | null
 
 interface BrowserPaneProps {
   isRecording: boolean
@@ -177,6 +178,15 @@ export function BrowserPane({ isRecording }: BrowserPaneProps) {
       <PasswordManager
         open={activeModal === 'password'}
         onClose={() => setModalOpen(null)}
+      />
+      <ImportManager
+        open={activeModal === 'import'}
+        onClose={() => setModalOpen(null)}
+        onImported={() => {
+          if (hasLoadedUrl && isElectron) {
+            window.electronAPI?.browserReload().catch(() => {})
+          }
+        }}
       />
     </div>
   )

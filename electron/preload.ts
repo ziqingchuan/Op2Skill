@@ -39,7 +39,31 @@ interface ImportedPassword {
   password: string
 }
 
-type ModalType = 'cookie' | 'password'
+type ModalType = 'cookie' | 'password' | 'import'
+
+interface ChromeProfileInfo {
+  id: string
+  name: string
+  path: string
+  cookiesPath?: string
+  hasCookies: boolean
+  hasPasswords: boolean
+}
+
+interface ImportOptions {
+  profileId?: string
+  importCookies?: boolean
+  importPasswords?: boolean
+  domainFilter?: string
+}
+
+interface ImportResult {
+  cookiesImported: number
+  cookiesSkipped: number
+  passwordsImported: number
+  passwordsSkipped: number
+  errors: string[]
+}
 
 type Unsubscribe = () => void
 
@@ -113,6 +137,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
   browserSavePasswords(entries: ImportedPassword[]) {
     return ipcRenderer.invoke('browser:save-passwords', entries)
+  },
+
+  browserListChromeProfiles() {
+    return ipcRenderer.invoke('browser:list-chrome-profiles') as Promise<ChromeProfileInfo[]>
+  },
+
+  browserImportCredentials(options: ImportOptions) {
+    return ipcRenderer.invoke('browser:import-credentials', options) as Promise<ImportResult>
   },
 
   browserSetModalVisible(visible: boolean) {

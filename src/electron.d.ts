@@ -3,12 +3,36 @@
 import type { RecordedEvent, RecordingSession } from '@/types/events'
 
 type RecorderCommand = 'START' | 'STOP' | 'PAUSE' | 'RESUME'
-type ModalType = 'cookie' | 'password'
+type ModalType = 'cookie' | 'password' | 'import'
 
 interface ImportedPassword {
   url: string
   username: string
   password: string
+}
+
+interface ChromeProfileInfo {
+  id: string
+  name: string
+  path: string
+  cookiesPath?: string
+  hasCookies: boolean
+  hasPasswords: boolean
+}
+
+interface ImportOptions {
+  profileId?: string
+  importCookies?: boolean
+  importPasswords?: boolean
+  domainFilter?: string
+}
+
+interface ImportResult {
+  cookiesImported: number
+  cookiesSkipped: number
+  passwordsImported: number
+  passwordsSkipped: number
+  errors: string[]
 }
 
 declare global {
@@ -47,6 +71,8 @@ declare global {
     browserRemoveCookie(url: string, name: string): Promise<void>
     browserGetPasswords(): Promise<ImportedPassword[]>
     browserSavePasswords(entries: ImportedPassword[]): Promise<void>
+    browserListChromeProfiles(): Promise<ChromeProfileInfo[]>
+    browserImportCredentials(options: ImportOptions): Promise<ImportResult>
     browserSetModalVisible(visible: boolean): Promise<void>
     // Sessions persistence
     sessionsLoad(): Promise<string>

@@ -55,6 +55,12 @@ electron_1.contextBridge.exposeInMainWorld('electronAPI', {
     browserSavePasswords(entries) {
         return electron_1.ipcRenderer.invoke('browser:save-passwords', entries);
     },
+    browserListChromeProfiles() {
+        return electron_1.ipcRenderer.invoke('browser:list-chrome-profiles');
+    },
+    browserImportCredentials(options) {
+        return electron_1.ipcRenderer.invoke('browser:import-credentials', options);
+    },
     browserSetModalVisible(visible) {
         return electron_1.ipcRenderer.invoke('browser:set-modal-visible', visible);
     },

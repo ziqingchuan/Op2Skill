@@ -12,6 +12,6 @@
     "esModuleInterop": true,
     "noEmit": false
   },
-  "include": ["main.ts", "preload.ts", "browser-preload.ts"],
+  "include": ["main.ts", "preload.ts", "browser-preload.ts", "services/**/*.ts"],
   "exclude": []
 }

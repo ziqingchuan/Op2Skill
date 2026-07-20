@@ -2,6 +2,8 @@ import { app, BrowserWindow, WebContentsView, ipcMain, nativeImage, Menu, safeSt
 import type { Rectangle, WebContents } from 'electron'
 import * as path from 'path'
 import * as fs from 'fs'
+import { applyChromeImport, type ImportOptions } from './services/chromeImport'
+import { listChromeProfiles } from './services/chromeProfile'
 
 interface BrowserBounds {
   x: number
@@ -38,6 +40,7 @@ interface CozeApiError extends Error {
 type RecorderCommand = 'START' | 'STOP' | 'PAUSE' | 'RESUME'
 
 const isDev = process.env.NODE_ENV === 'development' || !app.isPackaged
+const CHROME_IMPORT_DEBUG = process.env.CHROME_IMPORT_DEBUG === '1'
 const DEFAULT_BROWSER_ZOOM = 0.75
 const COZE_API_WORKFLOW = 'https://api.coze.cn/v1/workflow/run'
 const COZE_AUTH_TOKEN = 'pat_xjlFc7hPavZTMo4WSkIsMWDk3MQD8g6fL7CBelLhGvnaAYMZAbeCJM0LNYGeVvDR'
@@ -525,6 +528,14 @@ ipcMain.handle('browser:show-context-menu', async (_event) => {
         }
       },
     },
+    {
+      label: '导入 Cookie 和密码',
+      click: () => {
+        if (mainWindow && !mainWindow.webContents.isDestroyed()) {
+          mainWindow.webContents.send('open-browser-modal', 'import')
+        }
+      },
+    },
     { type: 'separator' },
     {
       label: '清除缓存',
@@ -569,6 +580,72 @@ ipcMain.handle('browser:get-passwords', async () => {
 
 ipcMain.handle('browser:save-passwords', async (_event, entries: PasswordEntry[]) => {
   writeStoredPasswords(entries)
+})
+
+ipcMain.handle('browser:list-chrome-profiles', async () => {
+  return listChromeProfiles()
+})
+
+ipcMain.handle('browser:import-credentials', async (_event, options: ImportOptions) => {
+  const wc = getBrowserContents()
+  if (!wc || wc.isDestroyed()) {
+    return {
+      cookiesImported: 0,
+      cookiesSkipped: 0,
+      passwordsImported: 0,
+      passwordsSkipped: 0,
+      errors: ['内嵌浏览器未就绪，请先加载一个网页'],
+    }
+  }
+
+  return applyChromeImport(
+    options,
+    async (details) => {
+      try {
+        await wc.session.cookies.set(details)
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error)
+        if (CHROME_IMPORT_DEBUG) {
+          console.info('[chrome-import][cookie][set-failed]', { details, error: message })
+        }
+        const overwriteHttpOnly = message.includes('EXCLUDE_OVERWRITE_HTTP_ONLY')
+        const overwriteSecure = message.includes('EXCLUDE_OVERWRITE_SECURE')
+        const canRetryOverwrite = overwriteHttpOnly || overwriteSecure
+        if (!canRetryOverwrite || !details.url || !details.name) throw error
+
+        const retryUrl = overwriteSecure ? details.url.replace(/^http:\/\//i, 'https://') : details.url
+        if (CHROME_IMPORT_DEBUG) {
+          console.info('[chrome-import][cookie][overwrite-retry-remove]', {
+            name: details.name,
+            originalUrl: details.url,
+            retryUrl,
+            reason: overwriteSecure ? 'EXCLUDE_OVERWRITE_SECURE' : 'EXCLUDE_OVERWRITE_HTTP_ONLY',
+          })
+        }
+        await wc.session.cookies.remove(retryUrl, details.name)
+        const retryDetails = overwriteSecure ? { ...details, url: retryUrl, secure: true } : details
+        if (CHROME_IMPORT_DEBUG) {
+          console.info('[chrome-import][cookie][overwrite-retry-set]', retryDetails)
+        }
+        try {
+          await wc.session.cookies.set(retryDetails)
+          if (CHROME_IMPORT_DEBUG) {
+            console.info('[chrome-import][cookie][overwrite-retry-success]', retryDetails)
+          }
+        } catch (retryError) {
+          if (CHROME_IMPORT_DEBUG) {
+            console.info('[chrome-import][cookie][overwrite-retry-failed]', {
+              details: retryDetails,
+              error: retryError instanceof Error ? retryError.message : String(retryError),
+            })
+          }
+          throw retryError
+        }
+      }
+    },
+    readStoredPasswords,
+    writeStoredPasswords
+  )
 })
 
 ipcMain.handle('browser:set-modal-visible', async (_event, visible: boolean) => {
